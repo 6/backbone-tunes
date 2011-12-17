@@ -47,5 +47,8 @@ describe("Album", function () {
       });
     });
 
+    it("returns url for track", function() {
+      expect(this.album.trackUrlAtIndex(0)).toEqual('/music/Album A Track A.mp3');
+    });
 
 });

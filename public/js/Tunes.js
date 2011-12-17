@@ -9,6 +9,13 @@
     ,isLastTrack: function(index) {
       return index >= this.get('tracks').length - 1;
     }
+    
+    ,trackUrlAtIndex: function(index) {
+      if(this.get('tracks').length >= index) {
+        return this.get('tracks')[index].url;
+      }
+      return null;
+    }
   });
 
   window.AlbumView = Backbone.View.extend({
