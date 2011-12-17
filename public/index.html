@@ -19,6 +19,16 @@
     <script src="js/vendor/underscore.js"></script>
     <script src="js/vendor/backbone.js"></script>
     <script src="js/Tunes.js"></script>
+    
+    <script type="text/template" id="album-template">
+      <span class="album-title"><%= title %></span>
+      <span class="artist-name"><%= artist %></span>
+      <ol class="tracks">
+        <% _.each(tracks, function(track) { %>
+          <li><%= track.title %></li>
+        <% }); %>
+      </ol>
+    </script>
   </head>
 
   <body>
