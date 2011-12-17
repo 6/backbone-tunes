@@ -1,7 +1,11 @@
 (function($) {
 
   // the most basic model
-  window.Album = Backbone.Model.extend({});
+  window.Album = Backbone.Model.extend({
+    isFirstTrack: function(index) {
+      return index == 0;
+    }
+  });
 
   window.AlbumView = Backbone.View.extend({
     tagName: 'li'

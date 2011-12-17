@@ -33,5 +33,12 @@ describe("Album", function () {
     it("creates from data", function () {
         expect(this.album.get('tracks').length).toEqual(2);
     });
+    
+    // test the model some more
+    describe("first track", function() {
+      it("indentifies correct first track", function () {
+        expect(this.album.isFirstTrack(0)).toBeTruthy();
+      });
+    });
 
 });
