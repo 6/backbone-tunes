@@ -4,8 +4,14 @@
   window.Album = Backbone.Model.extend({});
 
   window.AlbumView = Backbone.View.extend({
+    tagName: 'li'
+    ,className: 'album'
     
-    initialize: function() {
+    ,initialize: function() {
+      // bind to this, render is the view cb
+      _.bindAll(this, 'render');
+      // notified when model changes
+      this.model.bind('change', this.render); // re-render entire view
       // template to associate with this view
       this.template = _.template($('#album-template').html());
     }
