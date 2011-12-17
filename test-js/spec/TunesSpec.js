@@ -36,9 +36,16 @@ describe("Album", function () {
     
     // test the model some more
     describe("first track", function() {
-      it("indentifies correct first track", function () {
+      it("indentifies correct first track", function() {
         expect(this.album.isFirstTrack(0)).toBeTruthy();
       });
     });
+    
+    describe("last track", function() {
+      it("indentifies correct last track", function() {
+        expect(this.album.isLastTrack(1)).toBeTruthy();
+      });
+    });
+
 
 });
