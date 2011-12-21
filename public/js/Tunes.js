@@ -87,5 +87,34 @@
       return this;
     }
   });
+  
+  // router
+  window.BackboneTunes = Backbone.Router.extend({
+      routes: {
+        // map URL patterns to custom route handlers
+        '': 'home'
+      }
+      
+      // instantiates root-level view
+      ,initialize: function() {
+        this.libraryView = new LibraryView({
+          collection: library
+        });
+      }
+      
+      ,home: function() {
+        var $container  = $("#container");
+        $container.empty();
+        $container.append(this.libraryView.render().el);
+      }
+  });
+  
+  window.library = new Albums();
+  
+  $(function(){
+    // initialize router
+    window.App = new BackboneTunes();
+    Backbone.history.start(); // uses # by default, but can {pushState:true} 
+  });
 
 })(jQuery);
