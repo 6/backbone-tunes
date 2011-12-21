@@ -17,7 +17,22 @@
       return null;
     }
   });
-
+  
+  /* use with:
+  albums = new Albums();
+  albums.fetch();
+  // see what models fetched:
+  albums.models
+  // process with:
+  albums.map(function(album) { return album.get('title') })
+  OR easier: albums.pluck('title');
+  */
+  window.Albums = Backbone.Collection.extend({
+    // collections MUST specify the model that this collection will manage
+    model: Album
+    ,url: '/albums' // URL from which get albums (see lib/server.rb)
+  });
+  
   window.AlbumView = Backbone.View.extend({
     tagName: 'li'
     ,className: 'album'
@@ -35,6 +50,41 @@
       var renderedContent = this.template(this.model.toJSON());
       $(this.el).html(renderedContent); // el is wrapper element of this view
       return this; // return this so we can chain other calls
+    }
+  });
+  
+  window.LibraryAlbumView = AlbumView.extend({});
+  
+  // display items in the library collection
+  window.LibraryView = Backbone.View.extend({
+    tagName: 'section' // section tag from HTML5
+    ,className: 'library'
+    
+    ,initialize: function() {
+      _.bindAll(this, 'render');
+      this.template = _.template($("#library-template").html());
+      // render asynchronously when data arrives
+      // trigger render() whenever collection is reset
+      this.collection.bind('reset', this.render);
+    }
+    
+    ,render: function() {
+      var $albums, // convention: refer to jQuery elements with $ sign in front
+          collection = this.collection;
+      // this template has no logic/data (for now)
+      $(this.el).html(this.template({}));
+      // this.$('pattern') --> search within current element
+      $albums = this.$('.albums');
+      // render a view (LibraryAlbumView) for each model
+      collection.each(function(album) {
+        var view = new LibraryAlbumView({
+          model: album
+          ,collection: collection
+        });
+        // append view to HTML
+        $albums.append(view.render().el);
+      });
+      return this;
     }
   });
 
