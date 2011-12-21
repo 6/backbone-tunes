@@ -93,6 +93,7 @@
       routes: {
         // map URL patterns to custom route handlers
         '': 'home'
+        ,'blank': 'blank'
       }
       
       // instantiates root-level view
@@ -106,6 +107,11 @@
         var $container  = $("#container");
         $container.empty();
         $container.append(this.libraryView.render().el);
+      }
+      
+      ,blank: function() {
+        $("#container").empty();
+        $("#container").text("blank!");
       }
   });
   
